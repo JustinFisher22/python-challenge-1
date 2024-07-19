@@ -52,6 +52,7 @@ menu = {
 
 # 1. Set up order list. Order list will store a list of dictionaries for
 # menu item name, item price, and quantity ordered
+order_list = []
 [
     {"Item name": "string",
      "Price": float,
@@ -171,10 +172,19 @@ while place_order:
 
     while True:
         # Ask the customer if they would like to order anything else
-        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o: ").strip().lower()
 
         # 5. Check the customer's input
-
+        if keep_ordering:
+            if keep_ordering == 'y':
+                place_order = True
+                break
+            elif keep_ordering == 'n':
+                place_order = False
+                print("Thank you for your order!")
+                break
+            else:
+                print("Please enter 'Y' for Yes or 'N' for No.")
                 # Keep ordering
 
                 # Exit the keep ordering question loop
@@ -192,27 +202,29 @@ while place_order:
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
-
-# Uncomment the following line to check the structure of the order
-#print(order)
-
 print("Item name                 | Price  | Quantity")
 print("--------------------------|--------|----------")
 
 # 6. Loop through the items in the customer's order
-
+for item in order_list:
+    
     # 7. Store the dictionary items as variables
-
+    item_name = item["Item_name"]
+    item_price = item["Price"]
+    item_quantity = item["Quantity"]
 
     # 8. Calculate the number of spaces for formatted printing
+    item_name_spaces = " " * (24 - len(item_name))
+    price_spaces = " " * (6 - len(f"{item_price:.2f}"))
 
-
-    # 9. Create space strings
+    # 9. Create space strings (Added in #8)
 
 
     # 10. Print the item name, price, and quantity
-
+    print(f"{item_name}{item_name_spaces} | ${item_price:6.2f} | {item_quantity:8}")
 
 # 11. Calculate the cost of the order using list comprehension
+total_cost = sum(item['Price'] * item['Quantity'] for item in order_list)
+print(f"\nTotal cost: ${total_cost:.2f}")
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
