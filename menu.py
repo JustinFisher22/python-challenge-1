@@ -141,7 +141,8 @@ while place_order:
     
 
                 # Convert the menu selection to an integer
-
+                number = int(selected_item)
+            
 
                 # 4. Check if the menu selection is in the menu items
 
